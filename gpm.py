@@ -297,10 +297,10 @@ class VersionRange:
 @dataclass
 class Manifest:
     name: str = "unnamed-package"
-    version: str = "0.1.0"
+    version: str = ""
     description: str = ""
     authors: List[str] = field(default_factory=list)
-    license: str = "MIT"
+    license: str = ""
     entry: str = "src/main.glt"
     repository: str = ""
     keywords: List[str] = field(default_factory=list)
@@ -369,10 +369,10 @@ class Manifest:
 
         return cls(
             name=_as_text(data.get("name"), "name", "unnamed-package"),
-            version=_as_text(data.get("version"), "version", "0.1.0"),
+            version=_as_text(data.get("version"), "version", ""),
             description=_as_text(data.get("description"), "description", ""),
             authors=_as_list(data.get("authors"), "authors"),
-            license=_as_text(data.get("license"), "license", "MIT"),
+            license=_as_text(data.get("license"), "license", ""),
             entry=_as_text(data.get("entry"), "entry", "src/main.glt"),
             repository=_as_text(data.get("repository"), "repository", ""),
             keywords=_as_list(data.get("keywords"), "keywords"),
@@ -999,7 +999,7 @@ def cmd_init(args: argparse.Namespace) -> int:
     name = args.name or root.name
     validate_package_name(name)
 
-    manifest = Manifest(name=name, version="0.1.0", entry="src/main.glt")
+    manifest = Manifest(name=name, version="", entry="src/main.glt")
     save_manifest(root, manifest)
     ok(f"Created {MANIFEST_NAME}")
 
